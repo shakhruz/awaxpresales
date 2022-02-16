@@ -1,4 +1,4 @@
-#include "class1.hpp"
+// #include "class1.hpp"
 
 // const char* contract_name::sayhi_ricardian = R"(
 // This action says hi.

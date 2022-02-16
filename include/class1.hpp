@@ -48,6 +48,6 @@ namespace contract_name
     //   generator will make up names (e.g. arg0, arg1, arg2, ...).
     // * Optional: provides ricardian contracts to the ABI generator. Without this, the ABI generator
     //   will leave the ricardian contracts blank.
-    EOSIO_ACTIONS(presale_contract, default_contract_account)
+    EOSIO_ACTIONS(contract_name::presale_contract, default_contract_account)
 
 }  // namespace contract_name

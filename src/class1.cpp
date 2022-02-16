@@ -30,8 +30,15 @@
 // // Things to populate the ABI with
 // EOSIO_ABIGEN(actions(contract_name::actions), table("schema1"_n, contract_name::Schema1), ricardian_clause("Class 1 clause", contract_name::ricardian_clause))
 
+#include <string>
 #include <eosio/asset.hpp>
 #include <eosio/eosio.hpp>
+
+#include "token.hpp"
+
+using namespace std;
+using namespace eosio;
+using namespace token;
 
 namespace contract_name
 {
@@ -51,12 +58,15 @@ namespace contract_name
 
          // The dispatcher has already checked the token contract.
          // We need to check the token type.
-         eosio::check(quantity.symbol == eosio::symbol{"WAX", 4},
+         eosio::check(quantity.symbol == symbol("WAX", 4),
                       "This contract does not deal with this token");
 
-         // Record the change
-        //  add_balance(from, quantity);
-        INLINE_ACTION_SENDER(eosio::token, transfer)("awaxdaotoken"_n, {_self, "active"_n}, {_self, from, quantity, string("presale")} );
+         asset payout_sum = quantity;
+         payout_sum.symbol = symbol("AWAX", 4);
+
+         // Transfer back AWAX tokens
+         // INLINE_ACTION_SENDER(token_contract, transfer)("awaxdaotoken"_n, {_self, "active"_n}, {_self, from, payout_sum, string("presale")} );
+         INLINE_ACTION_SENDER(token_contract, transfer)("awaxdaotoken"_n, {get_self(), "active"_n}, {get_self(), from, payout_sum, string("presale")} );
       }
    };
 

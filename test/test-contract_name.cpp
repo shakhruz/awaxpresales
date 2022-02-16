@@ -1,18 +1,16 @@
 #include <eosio/tester.hpp>
 #include <token/token.hpp>
-
-#include "class1.hpp"
-
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 
 using namespace eosio;
+// #include "class1.hpp"
 
 // Setup function to install my contract to the chain
 void setup_installMyContract(test_chain& t)
 {
-    t.create_code_account(contract_name::default_contract_account);
-    t.set_code(contract_name::default_contract_account, "artifacts/contract_name.wasm");
+    // t.create_code_account(contract_name::default_contract_account);
+    // t.set_code(contract_name::default_contract_account, "artifacts/contract_name.wasm");
 }
 
 // Setup function to add some accounts to the chain
@@ -52,10 +50,10 @@ void setup_token(test_chain& t)
     // * token::actions::* is defined by EOSIO_ACTIONS(...) in token/token.hpp
     // * s2a (string-to-asset) is a shortcut for constructing assets
 
-    t.as("eosio.token"_n).act<token::actions::create>("eosio"_n, s2a("1000000.0000 EOS"));
-    t.as("eosio.token"_n).act<token::actions::create>("eosio"_n, s2a("1000000.0000 OTHER"));
-    t.as("eosio"_n).act<token::actions::issue>("eosio"_n, s2a("1000000.0000 EOS"), "");
-    t.as("eosio"_n).act<token::actions::issue>("eosio"_n, s2a("1000000.0000 OTHER"), "");
+    // t.as("eosio.token"_n).act<token::actions::create>("eosio"_n, s2a("1000000.0000 EOS"));
+    // t.as("eosio.token"_n).act<token::actions::create>("eosio"_n, s2a("1000000.0000 OTHER"));
+    // t.as("eosio"_n).act<token::actions::issue>("eosio"_n, s2a("1000000.0000 EOS"), "");
+    // t.as("eosio"_n).act<token::actions::issue>("eosio"_n, s2a("1000000.0000 OTHER"), "");
 
     // Uh-oh, someone's up to no good
     //
@@ -63,10 +61,10 @@ void setup_token(test_chain& t)
     // contract in the action wrappers. act<...> and trace<...> normally send the action to the
     // default. with_code() overrides that.
 
-    t.create_code_account("hacker.token"_n);
-    t.set_code("hacker.token"_n, CLSDK_CONTRACTS_DIR "token.wasm");
-    t.as("hacker.token"_n).with_code("hacker.token"_n).act<token::actions::create>("hacker.token"_n, s2a("1000000.0000 EOS"));
-    t.as("hacker.token"_n).with_code("hacker.token"_n).act<token::actions::issue>("hacker.token"_n, s2a("1000000.0000 EOS"), "");
+    // t.create_code_account("hacker.token"_n);
+    // t.set_code("hacker.token"_n, CLSDK_CONTRACTS_DIR "token.wasm");
+    // t.as("hacker.token"_n).with_code("hacker.token"_n).act<token::actions::create>("hacker.token"_n, s2a("1000000.0000 EOS"));
+    // t.as("hacker.token"_n).with_code("hacker.token"_n).act<token::actions::issue>("hacker.token"_n, s2a("1000000.0000 EOS"), "");
 }
 
 // Sample setup function to fund some users
@@ -83,9 +81,9 @@ void setup_fundUsers(test_chain& t)
 TEST_CASE("Short description of first test", "[test]")
 {
     // This starts a single-producer chain
-    // test_chain t;
-    // setup_installMyContract(t);
-    // setup_createAccounts(t);
+    test_chain t;
+    setup_installMyContract(t);
+    setup_createAccounts(t);
 
     // some shortcuts
     // auto alice = t.as("alice"_n);
