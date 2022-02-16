@@ -32,7 +32,7 @@ namespace contract_name
          // eosio::check(quantity.symbol == eosio::symbol{"WAX", 4},
          //              "Only WAX tokens are accepted for presale");
 
-         // eosio::check(quantity.symbol.code() == WAX_SYMBOL.code(), "only WAX token is accepted");
+         eosio::check(quantity.symbol.code() == WAX_SYMBOL.code(), "only WAX token is accepted");
          
          asset payout = quantity;
          payout.amount = payout.amount / 10000;
